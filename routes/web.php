@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Main;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    echo 'Gestor de tarefas';
 });
+
+// Route::get('/main', [Main::class, 'index']);
+
+Route::get('/main', [
+    Main::class, 'index'
+]);
