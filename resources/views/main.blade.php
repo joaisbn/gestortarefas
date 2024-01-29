@@ -1,14 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('templates.main_layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }}</title>
-</head>
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row aling-items center">
+                    <div class="col">
+                        <h4>Tarefas</h4>
+                    </div>
+                    <div class="col text-end">
+                        <a class="btn btn-primary" href="{{ route('new_task') }}">
+                            <i class="bi bi-plus-square me-2"></i>
+                            Nova tarefa</a>
+                    </div>
+                </div>
 
-<body>
-    {{ $description }}
-</body>
-
-</html>
+                @if ($tasks->count() != 0)
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="w-50">Tarefa</th>
+                                <th class="w-25 text-center">Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tasks as $task)
+                                <tr>
+                                    <td>{{ $task->task_name }}</td>
+                                    <td class="text-center">{{ $task->status }}</td>
+                                    <td class="text-center"></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-center opacity-50 my-5">Não existem tarefas registradas</p>
+                @endif
+            </div>
+        </div>
+    </div>
+@endsection

@@ -14,12 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    echo 'Gestor de tarefas';
+// login routes
+Route::get('/login', [Main::class, 'login'])->name('login');
+Route::post('/login_submit', [Main::class, 'login_submit'])->name('login_submit');
+
+// route with middleware
+// out app
+Route::middleware('CheckLogout')->group(function () {
+    Route::get('/login', [Main::class, 'login'])->name('login');
+    Route::post('/login_submit', [Main::class, 'login_submit'])->name('login_submit');
 });
 
-// Route::get('/main', [Main::class, 'index']);
+// in app
+Route::middleware('CheckLogin')->group(function () {
+    Route::get('/', [Main::class, 'index'])->name('index');
+    Route::get('/logout', [Main::class, 'logout'])->name('logout');
 
-Route::get('/main', [
-    Main::class, 'index'
-]);
+    // tasks
+    Route::get('/new_task', [Main::class, 'new_task'])->name('new_task');
+    Route::post('/new_task_submit', [Main::class, 'new_task_submit'])->name('new_task_submit');
+});
